@@ -33,23 +33,23 @@ This project showcases a full **CI/CD pipeline**:
 * `kubectl` installed
 * `k3d` (Lightweight Kubernetes) installed
 
-### 1. Clone the Repository
+Clone the Repository
 ```bash
 git clone [https://github.com/vanu888/HolaDev.git](https://github.com/vanu888/HolaDev.git)
 cd HolaDev
 ```
 
-### We use K3d to run a lightweight cluster inside Docker (perfect for low-resource environments)
+We use K3d to run a lightweight cluster inside Docker (perfect for low-resource environments)
 ```bash
 k3d cluster create my-cluster --servers 1 --agents 0 -p "8080:30000@server:0"
 ```
-### Apply the Kubernetes configuration to download the image and start the pods.
+Apply the Kubernetes configuration to download the image and start the pods.
 ```bash
 kubectl apply -f k8s-deployment.yaml
 ```
-### Check the status of the pods:
+Check the status of the pods:
 ```bash
 kubectl get pods
 ```
 
-### Access the application in your browser: `http://localhost:8080`
+Access the application in your browser: `http://localhost:8080`
