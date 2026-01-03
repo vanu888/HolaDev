@@ -1,0 +1,26 @@
+# deploy.yml
+---
+- name: Setup Docker and Build Image locally
+  hosts: localhost
+  connection: local
+  become: yes  # This means run as sudo
+
+  tasks:
+    - name: Ensure Docker is installed
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Ensure Docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Build the Python App Image
+      # In a real job, we use the 'docker_image' module, 
+      # but command is easier for beginners to debug.
+      command: docker build -t my-python-devops-app:v1 .
+      args:
+        chdir: "{{ playbook_dir }}"
