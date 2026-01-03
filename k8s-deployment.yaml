@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: python-app-deployment
 spec:
-  replicas: 2  # We will run 2 copies (pods) of your app!
+  replicas: 2
   selector:
     matchLabels:
       app: python-app
@@ -14,8 +14,14 @@ spec:
     spec:
       containers:
       - name: python-app
-        image: my-python-devops-app:v1
-        imagePullPolicy: Never  # IMPORTANT: Tells K8s to use the local image we imported
+        # CHANGE 1: Full address to your Docker Hub image
+        # Format: username/repository:tag
+        image: vanu888/my-python-devops-app:v2
+        
+        # CHANGE 2: "Always" forces K8s to check the internet for updates
+        # If you leave this as "Never", it will fail because it can't find the image locally anymore
+        imagePullPolicy: Always 
+        
         ports:
         - containerPort: 5000
 ---
@@ -30,4 +36,4 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
-      nodePort: 30000  # This matches the port we mapped in Step 2
+      nodePort: 30000
